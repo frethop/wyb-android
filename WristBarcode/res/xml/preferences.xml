@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  	<PreferenceCategory
+       android:title="General"
+       android:key="general_category">
+        
+       <CheckBoxPreference
+           android:title="Start at Boot"
+           android:key="startAtBoot" 
+           android:summary="Start barcode service when phone boots"
+           android:defaultValue="false"
+           />
+       <CheckBoxPreference
+           android:title="Sort Barcodes by Location"
+           android:key="sortByLocation" 
+           android:summary="Sort the barcode list so nearby locations are first"
+           android:defaultValue="false"
+           />
+       	</PreferenceCategory>
+</PreferenceScreen>

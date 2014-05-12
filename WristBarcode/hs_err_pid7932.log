@@ -1,0 +1,95 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (classFileParser.cpp:3494), pid=7932, tid=8324
+#  Error: ShouldNotReachHere()
+#
+# JRE version: 6.0_26-b03
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (20.1-b02 mixed mode windows-amd64 compressed oops)
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000000008bc800):  JavaThread "Unknown thread" [_thread_in_vm, id=8324, stack(0x00000000023b0000,0x00000000024b0000)]
+
+Stack: [0x00000000023b0000,0x00000000024b0000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x00000000008bc800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=8324, stack(0x00000000023b0000,0x00000000024b0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Dynamic libraries:
+0x0000000000400000 - 0x000000000042e000 	C:\Program Files\Java\jre6\bin\javaw.exe
+0x0000000077160000 - 0x0000000077309000 	C:\Windows\SYSTEM32\ntdll.dll
+0x0000000077040000 - 0x000000007715f000 	C:\Windows\system32\kernel32.dll
+0x000007fefd0e0000 - 0x000007fefd14b000 	C:\Windows\system32\KERNELBASE.dll
+0x0000000064d00000 - 0x0000000064d3f000 	C:\Program Files\AVAST Software\Avast\snxhk64.dll
+0x000007fefd370000 - 0x000007fefd44b000 	C:\Windows\system32\ADVAPI32.dll
+0x000007fefe0c0000 - 0x000007fefe15f000 	C:\Windows\system32\msvcrt.dll
+0x000007fefe270000 - 0x000007fefe28f000 	C:\Windows\SYSTEM32\sechost.dll
+0x000007fefd890000 - 0x000007fefd9bd000 	C:\Windows\system32\RPCRT4.dll
+0x0000000076f40000 - 0x000000007703a000 	C:\Windows\system32\USER32.dll
+0x000007fefe3f0000 - 0x000007fefe457000 	C:\Windows\system32\GDI32.dll
+0x000007fefd450000 - 0x000007fefd45e000 	C:\Windows\system32\LPK.dll
+0x000007fefdb50000 - 0x000007fefdc19000 	C:\Windows\system32\USP10.dll
+0x000007fefcdd0000 - 0x000007fefce27000 	C:\Windows\system32\apphelp.dll
+0x000007fede150000 - 0x000007fede1a1000 	C:\Windows\AppPatch\AppPatch64\AcGenral.DLL
+0x000007fefcda0000 - 0x000007fefcdc5000 	C:\Windows\system32\SspiCli.dll
+0x000007fefd460000 - 0x000007fefd4d1000 	C:\Windows\system32\SHLWAPI.dll
+0x000007fefdeb0000 - 0x000007fefe0b3000 	C:\Windows\system32\ole32.dll
+0x000007fefe640000 - 0x000007feff3c8000 	C:\Windows\system32\SHELL32.dll
+0x0000000073620000 - 0x0000000073623000 	C:\Windows\system32\sfc.dll
+0x000007fef47d0000 - 0x000007fef47e0000 	C:\Windows\system32\sfc_os.DLL
+0x000007fefc230000 - 0x000007fefc24e000 	C:\Windows\system32\USERENV.dll
+0x000007fefcea0000 - 0x000007fefceaf000 	C:\Windows\system32\profapi.dll
+0x000007fefb480000 - 0x000007fefb498000 	C:\Windows\system32\dwmapi.dll
+0x000007fefa190000 - 0x000007fefa1a8000 	C:\Windows\system32\MPR.dll
+0x000007fefd5c0000 - 0x000007fefd5ee000 	C:\Windows\system32\IMM32.DLL
+0x000007fefe160000 - 0x000007fefe269000 	C:\Windows\system32\MSCTF.dll
+0x000000006d7f0000 - 0x000000006dfa8000 	C:\Program Files\Java\jre6\bin\server\jvm.dll
+0x000007fefade0000 - 0x000007fefae1b000 	C:\Windows\system32\WINMM.dll
+0x000000006d760000 - 0x000000006d76e000 	C:\Program Files\Java\jre6\bin\verify.dll
+0x000000006d3b0000 - 0x000000006d3d7000 	C:\Program Files\Java\jre6\bin\java.dll
+0x0000000077320000 - 0x0000000077327000 	C:\Windows\system32\PSAPI.DLL
+0x000000006d7b0000 - 0x000000006d7c2000 	C:\Program Files\Java\jre6\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 -Xbootclasspath:C:\Program Files (x86)\Android\android-sdk\platforms\android-16\android.jar;C:\Program Files (x86)\Android\android-sdk\add-ons\addon-google_apis-google-16\libs\effects.jar;C:\Program Files (x86)\Android\android-sdk\add-ons\addon-google_apis-google-16\libs\usb.jar;C:\Program Files (x86)\Android\android-sdk\add-ons\addon-google_apis-google-16\libs\maps.jar 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 36062 -testLoaderClass org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader -loaderpluginname org.eclipse.jdt.junit.runtime -classNames com.kabestin.android.wristbarcode.test.MatrixOpsTest
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.6.0_26
+CLASSPATH=.;C:\Program Files (x86)\Java\jre6\lib\ext\QTJava.zip
+PATH=C:\Python33\;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\ATI Stream\bin\x86_64;C:\Program Files (x86)\ATI Stream\bin\x86;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;c:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;c:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;c:\Program Files (x86)\Common Files\Roxio Shared\12.0\DLLShared\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\Java\jdk1.6.0_26\bin;C:\Program Files\SlikSvn\bin\;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\Calibre2\;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files (x86)\Windows Kits\8.0\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\amd64;c:\ant/bin;C:\Program Files (x86)\Nmap;C:\Program Files (x86)\Scrivener
+USERNAME=jipping
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 8370708k(2569400k free), swap 16739556k(9282856k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (20.1-b02) for windows-amd64 JRE (1.6.0_26-b03), built on May  4 2011 07:15:24 by "java_re" with MS VC++ 8.0 (VS2005)
+
+time: Thu Jul 18 12:09:19 2013
+elapsed time: 0 seconds
+

@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/barcode_list_row"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+        <LinearLayout
+            android:id="@+id/row_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            >
+
+            <ViewSwitcher
+                android:id="@+id/barcode_name_editor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/barcode_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="26dip"
+                    android:textStyle="bold" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/barcode_editable_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="26dip"
+                    android:textStyle="bold"
+                    android:visibility="gone" 
+                    >
+                </EditText>
+            </ViewSwitcher >
+
+            <ImageButton
+                android:id="@+id/barcode_done_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:padding="5dp"
+                android:src="@drawable/check_32x26"
+                android:layout_alignParentRight="true"
+                android:visibility="gone" >
+            </ImageButton>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/row_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/barcode_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="info"
+                android:textSize="22dip" >
+            </TextView>
+
+            <ImageButton
+                android:id="@+id/barcode_delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:padding="5dp"
+                android:src="@drawable/x_28x28"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                >
+            </ImageButton>
+            <ImageButton
+                android:id="@+id/barcode_pin_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:padding="5dp"
+                android:src="@drawable/map_pin_fill"
+                android:visibility="gone"
+                android:layout_toLeftOf="@id/barcode_delete_button"
+                >
+            </ImageButton>
+        </RelativeLayout>
+</LinearLayout>
