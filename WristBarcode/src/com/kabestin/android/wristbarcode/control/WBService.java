@@ -106,10 +106,7 @@ public class WBService extends Service {
 		WBLocation location = null;
 		
 		prefs = getSharedPreferences("wybPrefs", MODE_MULTI_PROCESS);
-		//prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		//properties = (HashMap<String, String>) prefs.getAll();
-		//boolean byLocation = properties==null?false:properties.get("sortByLocation").equals("yes");
-		Boolean byLocation = prefs.getBoolean("sortByLocation", false);//, "no").equals("yes");
+		Boolean byLocation = prefs.getBoolean("sortByLocation", false);
 		System.out.println("In SERVICE: byLocation = "+byLocation);
 		if (byLocation) {
 			System.out.println("In SERVICE: byLocation set");
@@ -245,6 +242,8 @@ public class WBService extends Service {
 									.get(barcodeNumber == -1 ? getBarcodeToDisplay()
 											: barcodeNumber);
 							barcodeToDisplay = -1;
+							
+							System.out.println("SENDING "+bcode.getName());
 
 							// generate the barcode
 							int diff = Barcode.difference("Top",
