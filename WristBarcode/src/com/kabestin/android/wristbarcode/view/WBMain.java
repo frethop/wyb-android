@@ -203,7 +203,7 @@ public class WBMain extends Activity {
 		 */
 		barcodeService = new Intent(this, WBService.class);
 		startService(barcodeService);
-		//bindService(new Intent(this, WBService.class), mConnection, Context.BIND_AUTO_CREATE);
+		bindService(new Intent(this, WBService.class), mConnection, Context.BIND_AUTO_CREATE);
 
 	}
 	
