@@ -114,11 +114,15 @@ public class WBService extends Service {
 			location = new WBLocation(locationManager);
 		}
         
-        barcodeList = new BarcodeList(location); 
+		barcodeList = new BarcodeList(location); 
 		readBarcodeFile();
+		Barcode bcode = null;
+		if (intent != null) {
+			barcodeToDisplay = intent.getIntExtra("barcodeToDisplay", -1);
+			if (barcodeToDisplay != -1) bcode = barcodeList.get(barcodeToDisplay); 
+		}
 		barcodeList.sortCodes(byLocation);
-		
-		if (intent != null) barcodeToDisplay = intent.getIntExtra("barcodeToDisplay", -1);
+		if (barcodeToDisplay != -1) barcodeToDisplay = barcodeList.indexOf(bcode);
 		
 		mHandler = new Handler();
 

@@ -103,7 +103,7 @@ public class BarcodeList extends ArrayList<Barcode> {
 		sortCodes(new byNameAscending());
 		return true;
 	}
-	
+		
 	public void read(FileInputStream input)
 	{
 		BufferedReader barcodeFileReader = new BufferedReader(new InputStreamReader(input));

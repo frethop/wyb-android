@@ -249,4 +249,22 @@ public class Barcode {
 		longitude = aLong;
 	}
 	
+	public boolean equals(Object other) {
+		boolean result = false;
+	    if (other instanceof Barcode) {
+	    	Barcode that = (Barcode) other;
+	        result = (this.codeName.equals(that.codeName) &&
+	        		  this.formatName.equals(that.formatName) &&
+	        		  this.content.equals(that.content));
+	    }
+	    return result; 
+	}
+	
+	public int hashcode() {
+		String mashed = codeName + formatName + content;
+		int code = 0;
+		for (int i=0; i<mashed.length(); i++) code += mashed.charAt(i);
+		return code;
+	}
+	
 }
