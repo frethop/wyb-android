@@ -8,8 +8,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.kabestin.android.wristbarcode.view.R;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.R;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class BarcodeListOnLongClickAction implements OnLongClickListener {
 	
@@ -44,10 +44,7 @@ public class BarcodeListOnLongClickAction implements OnLongClickListener {
 		et.setFocusableInTouchMode(true);
         //et.requestFocus();
 		
-		ImageButton b = (ImageButton) v.findViewById(R.id.barcode_delete_button);
-		b.setVisibility(View.VISIBLE);
-		b.setOnClickListener(new DeleteOnClickAction(parent, position));
-		b = (ImageButton) v.findViewById(R.id.barcode_pin_button);
+		ImageButton b = (ImageButton) v.findViewById(R.id.barcode_pin_button);
 		b.setVisibility(View.VISIBLE);
 		b.setOnClickListener(new PinOnClickAction(parent, position));
 		b = (ImageButton) v.findViewById(R.id.barcode_done_button);

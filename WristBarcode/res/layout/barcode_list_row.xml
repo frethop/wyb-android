@@ -5,8 +5,37 @@
     android:orientation="vertical"
     android:padding="10dip" >
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+            android:id="@+id/back"
+            android:tag="back"
+            android:background="#ffffff"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+ 
+        <!-- ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/class_delete"
+                android:src="@drawable/delete"
+                />
+ 		-->
+    </LinearLayout>
+    <LinearLayout 
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:orientation="vertical" 
+		android:padding="8dip"
+		android:background="#ffffff"
+		android:contentDescription="class_display_row"
+        android:id="@+id/front"
+        android:tag="front"
+	>
+    <RelativeLayout
             android:id="@+id/row_one"
+            android:tag="row_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" 
@@ -47,7 +76,7 @@
                 android:layout_alignParentRight="true"
                 android:visibility="gone" >
             </ImageButton>
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/row_two"
@@ -64,17 +93,6 @@
             </TextView>
 
             <ImageButton
-                android:id="@+id/barcode_delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:padding="5dp"
-                android:src="@drawable/x_28x28"
-                android:visibility="gone"
-                android:layout_alignParentRight="true"
-                >
-            </ImageButton>
-            <ImageButton
                 android:id="@+id/barcode_pin_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,8 +100,9 @@
                 android:padding="5dp"
                 android:src="@drawable/map_pin_fill"
                 android:visibility="gone"
-                android:layout_toLeftOf="@id/barcode_delete_button"
+				android:layout_alignParentRight="true"
                 >
             </ImageButton>
         </RelativeLayout>
+     </LinearLayout>
 </LinearLayout>

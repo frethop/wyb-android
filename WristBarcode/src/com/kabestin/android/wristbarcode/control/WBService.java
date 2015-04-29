@@ -27,8 +27,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import com.getpebble.android.kit.PebbleKit;
 import com.getpebble.android.kit.util.PebbleDictionary;
@@ -41,9 +39,9 @@ import com.kabestin.android.wristbarcode.model.Barcode;
 import com.kabestin.android.wristbarcode.model.BarcodeList;
 import com.kabestin.android.wristbarcode.model.MatrixOps;
 import com.kabestin.android.wristbarcode.model.WBLocation;
-import com.kabestin.android.wristbarcode.view.ErrorAlert;
-import com.kabestin.android.wristbarcode.view.R;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.ErrorAlert;
+import com.kabestin.android.wristbarcode.view2.R;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class WBService extends Service {
 	
@@ -62,6 +60,8 @@ public class WBService extends Service {
     private final static int BARCODE_NEXT_CHUNK = 0x18;
     private final static int BARCODE_FORMAT = 0x19;
     private final static int BARCODE_ROWS_PER_MESSAGE = 0x20;
+    public final static int REREAD_BARCODE_LIST = 0x21;
+    public final static int DISPLAY_BARCODE = 0x22;
     private final static int BARCODE_ERROR = 0xFF;
     
     private final static int ROWS_PER_MESSAGE = 5;
@@ -107,9 +107,9 @@ public class WBService extends Service {
 		
 		prefs = getSharedPreferences("wybPrefs", MODE_MULTI_PROCESS);
 		Boolean byLocation = prefs.getBoolean("sortByLocation", false);
-		System.out.println("In SERVICE: byLocation = "+byLocation);
+		////System.out.println("In SERVICE: byLocation = "+byLocation);
 		if (byLocation) {
-			System.out.println("In SERVICE: byLocation set");
+			////System.out.println("In SERVICE: byLocation set");
 			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			location = new WBLocation(locationManager);
 		}
@@ -134,33 +134,32 @@ public class WBService extends Service {
 				BitMatrix bm = null;
 
 				// Possible commands
-				Long cmdL = data.getUnsignedInteger(CMD_KEY);
+				Long cmdL = data.getUnsignedIntegerAsLong(CMD_KEY);
 				if (cmdL != null) {
 					barcodeNumber = 0;
 					cmd = cmdL.intValue();
 					version = 0;
 				} else {
-					cmdL = data.getUnsignedInteger(REQUEST_BARCODE_LIST_LENGTH);
+					cmdL = data.getUnsignedIntegerAsLong(REQUEST_BARCODE_LIST_LENGTH);
 					if (cmdL != null) {
 						version = cmdL.intValue();
 						cmd = REQUEST_BARCODE_LIST_LENGTH;
 						barcodeNumber = 0;
 					} else {
-						cmdL = data.getUnsignedInteger(SEND_BARCODE_NAME);
+						cmdL = data.getUnsignedIntegerAsLong(SEND_BARCODE_NAME);
 						if (cmdL != null) {
 							barcodeNumber = cmdL.intValue();
 							cmd = SEND_BARCODE_NAME;
 							version = 0;
 						} else {
-							cmdL = data.getUnsignedInteger(SEND_BARCODE);
+							cmdL = data.getUnsignedIntegerAsLong(SEND_BARCODE);
 							if (cmdL != null) {
 								barcodeNumber = cmdL.intValue() == 255 ? barcodeToDisplay
 										: cmdL.intValue();
 								cmd = SEND_BARCODE;
 								version = 0;
 							} else {
-								cmdL = data
-										.getUnsignedInteger(BARCODE_NEXT_CHUNK);
+								cmdL = data.getUnsignedIntegerAsLong(BARCODE_NEXT_CHUNK);
 								if (cmdL != null) {
 									barcodeNumber = cmdL.intValue() == 255 ? barcodeToDisplay
 											: cmdL.intValue();
@@ -176,7 +175,7 @@ public class WBService extends Service {
 					}
 				}
 				
-				System.out.println("Received msg: "+cmd+"/"+barcodeNumber+"/"+version);
+				////System.out.println("Received msg: "+cmd+"/"+barcodeNumber+"/"+version);
 
 				mHandler.post(new Runnable() {
 					@Override
@@ -227,6 +226,7 @@ public class WBService extends Service {
 							PebbleKit.sendDataToPebble(parent, PEBBLE_APP_UUID,
 									data);
 							break;
+							
 						case SEND_BARCODE_NAME:
 							data = new PebbleDictionary();
 							bcl = ((WBService) context).getBarcodeList();
@@ -234,7 +234,7 @@ public class WBService extends Service {
 									.getName());
 							data.addString(BARCODE_FORMAT,
 									bcl.get(barcodeNumber).getFormatName());
-							System.out.println("Sending..."+bcl.get(barcodeNumber).getName());
+							////System.out.println("Sending..."+bcl.get(barcodeNumber).getName());
 							PebbleKit.sendDataToPebble(parent, PEBBLE_APP_UUID,
 									data);
 							break;
@@ -247,7 +247,7 @@ public class WBService extends Service {
 											: barcodeNumber);
 							barcodeToDisplay = -1;
 							
-							System.out.println("SENDING "+bcode.getName());
+							//System.out.println("SENDING "+bcode.getName());
 
 							// generate the barcode
 							int diff = Barcode.difference("Top",
@@ -258,9 +258,9 @@ public class WBService extends Service {
 										BARCODE_IMAGE_HEIGHT);
 								if (bm != null) {
 									dims = bm.getEnclosingRectangle();
-									System.out.println("NO ZOOM Dims [TLWH]: "
-										+ dims[TOP] + "," + dims[LEFT] + ","
-										+ dims[WIDTH] + "," + dims[HEIGHT]);
+//									System.out.println("NO ZOOM Dims [TLWH]: "
+//										+ dims[TOP] + "," + dims[LEFT] + ","
+//										+ dims[WIDTH] + "," + dims[HEIGHT]);
 								}
 							} else {
 								bm = generateBarcode(bcode.getContent(),
@@ -269,15 +269,15 @@ public class WBService extends Service {
 										(int) (BARCODE_IMAGE_WIDTH));
 								if (bm != null) {
 									dims = bm.getEnclosingRectangle();
-									System.out.println("BEFORE Dims [TLWH]: "
-											+ dims[TOP] + "," + dims[LEFT] + ","
-											+ dims[WIDTH] + "," + dims[HEIGHT]);
+									//System.out.println("BEFORE Dims [TLWH]: "
+									//		+ dims[TOP] + "," + dims[LEFT] + ","
+									//		+ dims[WIDTH] + "," + dims[HEIGHT]);
 									// bm = MatrixOps.resize(bm,
 									// BARCODE_IMAGE_HEIGHT, BARCODE_IMAGE_WIDTH);
 									dims = bm.getEnclosingRectangle();
-									System.out.println("MIDDLE Dims [TLWH]: "
-											+ dims[TOP] + "," + dims[LEFT] + ","
-											+ dims[WIDTH] + "," + dims[HEIGHT]);
+									//System.out.println("MIDDLE Dims [TLWH]: "
+									//		+ dims[TOP] + "," + dims[LEFT] + ","
+									//		+ dims[WIDTH] + "," + dims[HEIGHT]);
 									if (diff == 1)
 										bm = MatrixOps.rotate90clockwise(bm);
 									else if (diff == -1 || diff == 3)
@@ -289,10 +289,10 @@ public class WBService extends Service {
 							
 							// Flag error if necessary
 							if (bm == null) {
-								Toast.makeText(getApplicationContext(),
-										"ERROR: "+errorMessage,
-										Toast.LENGTH_LONG).show();
-								System.out.println("Sending ERROR message.");
+								//Toast.makeText(getApplicationContext(),
+								//		"ERROR: "+errorMessage,
+								//		Toast.LENGTH_LONG).show();
+								////System.out.println("Sending ERROR message.");
 								data.addString(BARCODE_ERROR, errorMessage);
 								bstart = new Date().getTime();
 								millis1 = new Date().getTime();
@@ -303,16 +303,16 @@ public class WBService extends Service {
 							// Record the barcode
 							setMatrix(bm);
 							dims = bm.getEnclosingRectangle();
-							System.out.println("AFTER Dims [TLWH]: "
-									+ dims[TOP] + "," + dims[LEFT] + ","
-									+ dims[WIDTH] + "," + dims[HEIGHT]);
+							//System.out.println("AFTER Dims [TLWH]: "
+							//		+ dims[TOP] + "," + dims[LEFT] + ","
+							//		+ dims[WIDTH] + "," + dims[HEIGHT]);
 
 							// send starting row information
 							int firstRow = (dims[TOP] - ROWS_PER_MESSAGE - 2);
 							if (firstRow < 0)
 								firstRow = -ROWS_PER_MESSAGE;
-							System.out.println("Sending first row number: "
-									+ firstRow);
+							//System.out.println("Sending first row number: "
+							//		+ firstRow);
 							data.addUint16(BARCODE_IMAGE_BYTES,
 									(short) firstRow);
 							bstart = new Date().getTime();
@@ -325,7 +325,7 @@ public class WBService extends Service {
 
 						case BARCODE_NEXT_CHUNK:
 							millis2 = new Date().getTime();
-							System.out.println("NEXT: " + (millis2 - millis1));
+							//System.out.println("NEXT: " + (millis2 - millis1));
 							bcl = ((WBService) context).getBarcodeList();
 							bm = getMatrix();
 							dims = bm.getEnclosingRectangle();
@@ -333,7 +333,7 @@ public class WBService extends Service {
 							int nextRow = barcodeNumber + ROWS_PER_MESSAGE;
 							while (nextRow < ROW_TO_STOP
 									&& nextRow < dims[TOP] + dims[HEIGHT]) {
-								System.out.println(nextRow);
+								//System.out.println(nextRow);
 								if (nextRow < (dims[TOP] - ROWS_PER_MESSAGE)) {
 									nextRow += 1;
 									continue;
@@ -347,9 +347,9 @@ public class WBService extends Service {
 									PebbleKit.sendDataToPebble(parent,
 											PEBBLE_APP_UUID, data);
 									bend = new Date().getTime();
-									System.out
-											.println("Total time for barcode: "
-													+ (bend - bstart));
+									//System.out
+									//		.println("Total time for barcode: "
+									//				+ (bend - bstart));
 								} else {
 									// send image in pieces, X rows at a time
 									imageMessageBytes = encode(bm, nextRow,
@@ -379,15 +379,15 @@ public class WBService extends Service {
 								PebbleKit.sendDataToPebble(parent,
 										PEBBLE_APP_UUID, data);
 								bend = new Date().getTime();
-								System.out.println("Total time for barcode: "
-										+ (bend - bstart));
+								//System.out.println("Total time for barcode: "
+								//		+ (bend - bstart));
 							}
 
 							break;
 						default:
-							Toast.makeText(getApplicationContext(),
-									"Got something else: " + cmd,
-									Toast.LENGTH_LONG).show();
+							//Toast.makeText(getApplicationContext(),
+							//		"Got something else: " + cmd,
+							//		Toast.LENGTH_LONG).show();
 							break;
 						}
 					}
@@ -476,12 +476,6 @@ public class WBService extends Service {
             		b = (byte) (b + ((bm.get(by*8+bit, aRow+z)?0:1) << bit));  // correct for endianness
             	}
             	
-            	// Different endian than Android
-            	// Reverse the bytes in a row.
-//            	int place = (bytesPerRow*z)+3+endian;
-//            	endian--; 
-//            	if (endian == -1) endian = bytesPerRow-1;
-
             	// Place the byte into the correct place in the array
             	int place = (bytesPerRow*z)+by+3;            	
             	imageBytes[place] = b;
@@ -508,7 +502,7 @@ public class WBService extends Service {
 			ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(stringData));
 			b = bbuf.array();
 		} catch (CharacterCodingException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 
 		String data;
@@ -524,14 +518,14 @@ public class WBService extends Service {
 				hints.put(EncodeHintType.MIN_SIZE, new Dimension(aWidth, aHeight));
 				matrix = writer.encode(data, format, aWidth, aHeight, hints);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 				matrix = null;
 				errorMessage = e.getMessage();
 			}
 
 			return matrix;
 		} catch (UnsupportedEncodingException e) { 
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			errorMessage = e.getMessage();
 			return null;
 		}

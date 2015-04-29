@@ -4,7 +4,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.kabestin.android.wristbarcode.model.ViewHolder;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class DeleteOnClickAction implements OnClickListener {
 	
@@ -13,7 +13,7 @@ public class DeleteOnClickAction implements OnClickListener {
 	
 	public DeleteOnClickAction(WBMain aParent, int aPosition) {
 		parent = aParent;
-		position = aPosition;
+		position = aPosition; 
 	}
 
 	@Override
@@ -21,8 +21,9 @@ public class DeleteOnClickAction implements OnClickListener {
 		
 		parent.getBarcodeList().remove(position);
 		parent.saveBarcodeFile();
-		parent.redrawList();
 		parent.restartService();
+		parent.redrawList();
+		parent.rereadBarcodeList();
 
 	}
 

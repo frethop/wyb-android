@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.view.View.OnClickListener;
 
 import com.google.zxing.common.BitMatrix;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class ShowBarcode implements DialogCreator {
 

@@ -3,7 +3,7 @@ package com.kabestin.android.wristbarcode.control;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.kabestin.android.wristbarcode.view.R;
+import com.kabestin.android.wristbarcode.view2.R;
 
 public class OpeningMenuAboutItem implements OptionsItemHandler, ActivityResultHandler {
 	

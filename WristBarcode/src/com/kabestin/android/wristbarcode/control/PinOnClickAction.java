@@ -5,7 +5,7 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.kabestin.android.wristbarcode.model.WBLocation;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class PinOnClickAction implements OnClickListener {
 	

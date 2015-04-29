@@ -16,7 +16,7 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Environment;
 
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class BarcodeList extends ArrayList<Barcode> {
 	

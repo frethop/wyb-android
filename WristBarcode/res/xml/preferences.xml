@@ -18,5 +18,11 @@
            android:summary="Sort the barcode list so nearby locations are first"
            android:defaultValue="false"
            />
+       <CheckBoxPreference
+           android:title="Integrate Google Wallet"
+           android:key="integrateGoogleWallet" 
+           android:summary="Add loyalty card barcodes from Google Wallet"
+           android:defaultValue="false"
+           />
        	</PreferenceCategory>
 </PreferenceScreen>

@@ -7,15 +7,14 @@ import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.kabestin.android.wristbarcode.model.Barcode;
 import com.kabestin.android.wristbarcode.model.ViewHolder;
-import com.kabestin.android.wristbarcode.view.R;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.R;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class BarcodeListOnClickListener implements OnClickListener {
 	
@@ -34,12 +33,17 @@ public class BarcodeListOnClickListener implements OnClickListener {
 	public void onClick(View v) {
 		ViewHolder vh = (ViewHolder) v.getTag();
 		View container = vh.containerRow;
-		LinearLayout row1 = (LinearLayout) container.findViewById(R.id.row_one);
+		RelativeLayout row1 = (RelativeLayout) container.findViewById(R.id.row_one);
 		TextView tv = (TextView) row1.findViewById(R.id.barcode_name);
 		if (tv.getVisibility() == View.VISIBLE) {
-			parent.restartServiceWithBarcode(vh.mPosition);
-			//parent.stopWatchApp(v);
 			parent.startWatchApp(v);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			parent.requestBarcodeDisplay(vh.mPosition);
 		} else {
 			RelativeLayout row2 = (RelativeLayout) container.findViewById(R.id.row_two);
 			EditText et = (EditText) row1.findViewById(R.id.barcode_editable_name);
@@ -56,14 +60,12 @@ public class BarcodeListOnClickListener implements OnClickListener {
 			parent.saveBarcodeFile();
 			parent.redrawList();
 			parent.restartService();
+			parent.rereadBarcodeList();
 			
-			ImageButton b = (ImageButton) row2.findViewById(R.id.barcode_delete_button);
-			b.setVisibility(View.GONE);
-			b = (ImageButton) row2.findViewById(R.id.barcode_pin_button);
+			ImageButton b = (ImageButton) row2.findViewById(R.id.barcode_pin_button);
 			b.setVisibility(View.GONE);
 			b = (ImageButton) row1.findViewById(R.id.barcode_done_button);
 			b.setVisibility(View.GONE);
-		
 		}
 	}
 

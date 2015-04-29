@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.kabestin.android.wristbarcode.view.OpeningPreferences;
-import com.kabestin.android.wristbarcode.view.R;
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.OpeningPreferences;
+import com.kabestin.android.wristbarcode.view2.R;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class OpeningMenuSettingsItem implements OptionsItemHandler, ActivityResultHandler {
 	

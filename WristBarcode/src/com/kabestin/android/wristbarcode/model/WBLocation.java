@@ -1,6 +1,6 @@
 package com.kabestin.android.wristbarcode.model;
 
-import com.kabestin.android.wristbarcode.view.WBMain;
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 import android.content.Context;
 import android.location.Criteria;
