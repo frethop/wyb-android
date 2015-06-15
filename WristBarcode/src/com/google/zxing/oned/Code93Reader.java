@@ -95,6 +95,11 @@ public final class Code93Reader extends OneDReader {
     } while (decodedChar != '*');
     result.deleteCharAt(result.length() - 1); // remove asterisk
 
+    int lastPatternSize = 0;
+    for (int counter : theCounters) {
+      lastPatternSize += counter;
+    }
+
     // Should be at least one more black module
     if (nextStart == end || !row.get(nextStart)) {
       throw NotFoundException.getNotFoundInstance();
@@ -112,7 +117,7 @@ public final class Code93Reader extends OneDReader {
     String resultString = decodeExtended(result);
 
     float left = (float) (start[1] + start[0]) / 2.0f;
-    float right = (float) (nextStart + lastStart) / 2.0f;
+    float right = lastStart + lastPatternSize / 2.0f;
     return new Result(
         resultString,
         null,
@@ -165,20 +170,16 @@ public final class Code93Reader extends OneDReader {
     }
     int pattern = 0;
     for (int i = 0; i < max; i++) {
-      int scaledShifted = (counters[i] << INTEGER_MATH_SHIFT) * 9 / sum;
-      int scaledUnshifted = scaledShifted >> INTEGER_MATH_SHIFT;
-      if ((scaledShifted & 0xFF) > 0x7F) {
-        scaledUnshifted++;
-      }
-      if (scaledUnshifted < 1 || scaledUnshifted > 4) {
+      int scaled = Math.round(counters[i] * 9.0f / sum);
+      if (scaled < 1 || scaled > 4) {
         return -1;
       }
       if ((i & 0x01) == 0) {
-        for (int j = 0; j < scaledUnshifted; j++) {
+        for (int j = 0; j < scaled; j++) {
           pattern = (pattern << 1) | 0x01;
         }
       } else {
-        pattern <<= scaledUnshifted;
+        pattern <<= scaled;
       }
     }
     return pattern;

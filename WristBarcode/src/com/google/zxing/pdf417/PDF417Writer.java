@@ -25,6 +25,7 @@ import com.google.zxing.pdf417.encoder.Compaction;
 import com.google.zxing.pdf417.encoder.Dimensions;
 import com.google.zxing.pdf417.encoder.PDF417;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
@@ -32,6 +33,11 @@ import java.util.Map;
  * @author qwandor@google.com (Andrew Walbran)
  */
 public final class PDF417Writer implements Writer {
+
+  /**
+   * default white space (margin) around the code
+   */
+  static final int WHITE_SPACE = 30;
 
   @Override
   public BitMatrix encode(String contents,
@@ -44,6 +50,7 @@ public final class PDF417Writer implements Writer {
     }
 
     PDF417 encoder = new PDF417();
+    int margin = WHITE_SPACE;
 
     if (hints != null) {
       if (hints.containsKey(EncodeHintType.PDF417_COMPACT)) {
@@ -59,9 +66,16 @@ public final class PDF417Writer implements Writer {
                               dimensions.getMaxRows(),
                               dimensions.getMinRows());
       }
+      if (hints.containsKey(EncodeHintType.MARGIN)) {
+        margin = ((Number) hints.get(EncodeHintType.MARGIN)).intValue();
+      }
+      if (hints.containsKey(EncodeHintType.CHARACTER_SET)) {
+        String encoding = (String) hints.get(EncodeHintType.CHARACTER_SET);
+        encoder.setEncoding(Charset.forName(encoding));
+      }
     }
 
-    return bitMatrixFromEncoder(encoder, contents, width, height);
+    return bitMatrixFromEncoder(encoder, contents, width, height, margin);
   }
 
   @Override
@@ -78,7 +92,8 @@ public final class PDF417Writer implements Writer {
   private static BitMatrix bitMatrixFromEncoder(PDF417 encoder,
                                                 String contents,
                                                 int width,
-                                                int height) throws WriterException {
+                                                int height,
+                                                int margin) throws WriterException {
     int errorCorrectionLevel = 2;
     encoder.generateBarcodeLogic(contents, errorCorrectionLevel);
 
@@ -107,29 +122,27 @@ public final class PDF417Writer implements Writer {
       if (rotated) {
         scaledMatrix = rotateArray(scaledMatrix);
       }
-      return bitMatrixFrombitArray(scaledMatrix);
+      return bitMatrixFrombitArray(scaledMatrix, margin);
     }
-    return bitMatrixFrombitArray(originalScale);
+    return bitMatrixFrombitArray(originalScale, margin);
   }
 
   /**
    * This takes an array holding the values of the PDF 417
    *
    * @param input a byte array of information with 0 is black, and 1 is white
+   * @param margin border around the barcode
    * @return BitMatrix of the input
    */
-  private static BitMatrix bitMatrixFrombitArray(byte[][] input) {
-    // Creates a small whitespace border around the barcode
-    int whiteSpace = 30;
-
+  private static BitMatrix bitMatrixFrombitArray(byte[][] input, int margin) {
     // Creates the bitmatrix with extra space for whitespace
-    BitMatrix output = new BitMatrix(input[0].length + 2 * whiteSpace, input.length + 2 * whiteSpace);
+    BitMatrix output = new BitMatrix(input[0].length + 2 * margin, input.length + 2 * margin);
     output.clear();
-    for (int y = 0, yOutput = output.getHeight() - whiteSpace; y < input.length; y++, yOutput--) {
+    for (int y = 0, yOutput = output.getHeight() - margin - 1; y < input.length; y++, yOutput--) {
       for (int x = 0; x < input[0].length; x++) {
         // Zero is white in the bytematrix
         if (input[y][x] == 1) {
-          output.set(x + whiteSpace, yOutput);
+          output.set(x + margin, yOutput);
         }
       }
     }

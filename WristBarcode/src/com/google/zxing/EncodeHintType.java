@@ -44,12 +44,19 @@ public enum EncodeHintType {
 
   /**
    * Specifies a minimum barcode size (type {@link Dimension}). Only applicable to Data Matrix now.
+   *
+   * @deprecated use width/height params in
+   * {@link com.google.zxing.datamatrix.DataMatrixWriter#encode(String, BarcodeFormat, int, int)}
    */
+  @Deprecated
   MIN_SIZE,
 
   /**
    * Specifies a maximum barcode size (type {@link Dimension}). Only applicable to Data Matrix now.
+   *
+   * @deprecated without replacement
    */
+  @Deprecated
   MAX_SIZE,
 
   /**
@@ -76,4 +83,11 @@ public enum EncodeHintType {
    */
   PDF417_DIMENSIONS,
 
+  /**
+   * Specifies the required number of layers for an Aztec code:
+   *   a negative number (-1, -2, -3, -4) specifies a compact Aztec code
+   *   0 indicates to use the minimum number of layers (the default)
+   *   a positive number (1, 2, .. 32) specifies a normaol (non-compact) Aztec code
+   */
+   AZTEC_LAYERS,
 }

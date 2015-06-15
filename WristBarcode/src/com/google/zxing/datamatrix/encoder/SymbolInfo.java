@@ -25,7 +25,7 @@ import com.google.zxing.Dimension;
  */
 public class SymbolInfo {
 
-  public static final SymbolInfo[] PROD_SYMBOLS = {
+  static final SymbolInfo[] PROD_SYMBOLS = {
     new SymbolInfo(false, 3, 5, 8, 8, 1),
     new SymbolInfo(false, 5, 7, 10, 10, 1),
       /*rect*/new SymbolInfo(true, 5, 7, 16, 6, 1),
@@ -73,13 +73,13 @@ public class SymbolInfo {
   }
 
   private final boolean rectangular;
-  final int dataCapacity;
-  final int errorCodewords;
+  private final int dataCapacity;
+  private final int errorCodewords;
   public final int matrixWidth;
   public final int matrixHeight;
   private final int dataRegions;
-  int rsBlockData;
-  int rsBlockError;
+  private final int rsBlockData;
+  private final int rsBlockError;
 
   public SymbolInfo(boolean rectangular, int dataCapacity, int errorCodewords,
                     int matrixWidth, int matrixHeight, int dataRegions) {
@@ -87,9 +87,9 @@ public class SymbolInfo {
          dataCapacity, errorCodewords);
   }
 
-  private SymbolInfo(boolean rectangular, int dataCapacity, int errorCodewords,
-                     int matrixWidth, int matrixHeight, int dataRegions,
-                     int rsBlockData, int rsBlockError) {
+  SymbolInfo(boolean rectangular, int dataCapacity, int errorCodewords,
+             int matrixWidth, int matrixHeight, int dataRegions,
+             int rsBlockData, int rsBlockError) {
     this.rectangular = rectangular;
     this.dataCapacity = dataCapacity;
     this.errorCodewords = errorCodewords;
@@ -208,6 +208,14 @@ public class SymbolInfo {
 
   public int getInterleavedBlockCount() {
     return dataCapacity / rsBlockData;
+  }
+  
+  public final int getDataCapacity() {
+    return dataCapacity;
+  }
+  
+  public final int getErrorCodewords() {
+    return errorCodewords;
   }
 
   public int getDataLengthForInterleavedBlock(int index) {

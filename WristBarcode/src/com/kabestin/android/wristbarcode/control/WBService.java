@@ -175,7 +175,7 @@ public class WBService extends Service {
 					}
 				}
 				
-				////System.out.println("Received msg: "+cmd+"/"+barcodeNumber+"/"+version);
+				System.out.println("Received msg: "+cmd+"/"+barcodeNumber+"/"+version);
 
 				mHandler.post(new Runnable() {
 					@Override
