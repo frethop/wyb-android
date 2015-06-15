@@ -134,35 +134,35 @@ containing a value of this type.
         public static final int x_28x28=0x7f02000a;
     }
     public static final class id {
-        public static final int about_content=0x7f090007;
-        public static final int action_about=0x7f09001c;
-        public static final int action_add=0x7f09001a;
-        public static final int action_settings=0x7f09001b;
-        public static final int back=0x7f09000a;
-        public static final int barcode_done_button=0x7f090012;
-        public static final int barcode_editable_name=0x7f090011;
-        public static final int barcode_info=0x7f090014;
-        public static final int barcode_list=0x7f090008;
-        public static final int barcode_list_row=0x7f09000d;
-        public static final int barcode_name=0x7f090010;
-        public static final int barcode_name_editor=0x7f09000f;
-        public static final int barcode_ok_button=0x7f09000c;
-        public static final int barcode_pin_button=0x7f090015;
-        public static final int barcode_view=0x7f09000b;
-        public static final int both=0x7f090001;
-        public static final int cancel_barcode_name_button=0x7f090019;
-        public static final int choice=0x7f090006;
-        public static final int complete_barcode_name_button=0x7f090018;
-        public static final int dismiss=0x7f090005;
-        public static final int front=0x7f090009;
-        public static final int left=0x7f090003;
-        public static final int new_barcode_name=0x7f090016;
-        public static final int new_barcode_name_dialog_button_container=0x7f090017;
-        public static final int none=0x7f090000;
-        public static final int reveal=0x7f090004;
-        public static final int right=0x7f090002;
-        public static final int row_one=0x7f09000e;
-        public static final int row_two=0x7f090013;
+        public static final int about_content=0x7f0a0007;
+        public static final int action_about=0x7f0a001c;
+        public static final int action_add=0x7f0a001a;
+        public static final int action_settings=0x7f0a001b;
+        public static final int back=0x7f0a000a;
+        public static final int barcode_done_button=0x7f0a0012;
+        public static final int barcode_editable_name=0x7f0a0011;
+        public static final int barcode_info=0x7f0a0014;
+        public static final int barcode_list=0x7f0a0008;
+        public static final int barcode_list_row=0x7f0a000d;
+        public static final int barcode_name=0x7f0a0010;
+        public static final int barcode_name_editor=0x7f0a000f;
+        public static final int barcode_ok_button=0x7f0a000c;
+        public static final int barcode_pin_button=0x7f0a0015;
+        public static final int barcode_view=0x7f0a000b;
+        public static final int both=0x7f0a0000;
+        public static final int cancel_barcode_name_button=0x7f0a0019;
+        public static final int choice=0x7f0a0004;
+        public static final int complete_barcode_name_button=0x7f0a0018;
+        public static final int dismiss=0x7f0a0005;
+        public static final int front=0x7f0a0009;
+        public static final int left=0x7f0a0001;
+        public static final int new_barcode_name=0x7f0a0016;
+        public static final int new_barcode_name_dialog_button_container=0x7f0a0017;
+        public static final int none=0x7f0a0002;
+        public static final int reveal=0x7f0a0006;
+        public static final int right=0x7f0a0003;
+        public static final int row_one=0x7f0a000e;
+        public static final int row_two=0x7f0a0013;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -172,7 +172,7 @@ containing a value of this type.
         public static final int new_barcode_dialog=0x7f030004;
     }
     public static final class menu {
-        public static final int wbmain=0x7f0a0000;
+        public static final int wbmain=0x7f090000;
     }
     public static final class string {
         public static final int about_text=0x7f070003;

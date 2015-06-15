@@ -108,7 +108,7 @@ public class Barcode {
 		else if (formatName.toLowerCase().equals("code_128"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("data_matrix"))
-			return "Top";
+			return "Left";
 		else if (formatName.toLowerCase().equals("ean_8"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("ean_13"))

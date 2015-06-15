@@ -247,11 +247,12 @@ public class WBService extends Service {
 											: barcodeNumber);
 							barcodeToDisplay = -1;
 							
-							//System.out.println("SENDING "+bcode.getName());
+							System.out.println("SENDING "+bcode.getName());
 
 							// generate the barcode
 							int diff = Barcode.difference("Top",
 									bcode.getDesiredOrientation());
+							System.out.println("format: "+bcode.getFormatName()+", data = "+bcode.getContent());
 							if (diff >= 0) {
 								bm = generateBarcode(bcode.getContent(),
 										bcode.getFormat(), BARCODE_IMAGE_WIDTH,
@@ -292,7 +293,7 @@ public class WBService extends Service {
 								//Toast.makeText(getApplicationContext(),
 								//		"ERROR: "+errorMessage,
 								//		Toast.LENGTH_LONG).show();
-								////System.out.println("Sending ERROR message.");
+								System.out.println("Sending ERROR message.");
 								data.addString(BARCODE_ERROR, errorMessage);
 								bstart = new Date().getTime();
 								millis1 = new Date().getTime();
@@ -502,7 +503,7 @@ public class WBService extends Service {
 			ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(stringData));
 			b = bbuf.array();
 		} catch (CharacterCodingException e) {
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		String data;
@@ -518,14 +519,14 @@ public class WBService extends Service {
 				hints.put(EncodeHintType.MIN_SIZE, new Dimension(aWidth, aHeight));
 				matrix = writer.encode(data, format, aWidth, aHeight, hints);
 			} catch (Exception e) {
-				//System.out.println(e.getMessage());
+				System.out.println("matrix: "+e.getMessage());
 				matrix = null;
 				errorMessage = e.getMessage();
 			}
 
 			return matrix;
 		} catch (UnsupportedEncodingException e) { 
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 			errorMessage = e.getMessage();
 			return null;
 		}

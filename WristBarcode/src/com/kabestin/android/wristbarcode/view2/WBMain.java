@@ -777,9 +777,10 @@ public class WBMain extends Activity {
              slview.closeAnimate(pos);//when you touch back view it will close
              if (swipeStarted) {
             	 swipeStarted = false;
+            	 String bn = barcodeList.get(position).getName();
             	 AlertDialog.Builder builder = new AlertDialog.Builder(WBMain.this);
              	 builder
-             	 	.setTitle("Delete Barcode")
+             	 	.setTitle("Delete "+bn)
              	 	.setMessage("Are you sure?")
              	 	.setIcon(android.R.drawable.ic_dialog_alert)
              	 	.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
