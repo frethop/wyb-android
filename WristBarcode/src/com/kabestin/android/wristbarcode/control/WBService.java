@@ -250,42 +250,58 @@ public class WBService extends Service {
 							System.out.println("SENDING "+bcode.getName());
 
 							// generate the barcode
-							int diff = Barcode.difference("Top",
-									bcode.getDesiredOrientation());
 							System.out.println("format: "+bcode.getFormatName()+", data = "+bcode.getContent());
-							if (diff >= 0) {
-								bm = generateBarcode(bcode.getContent(),
-										bcode.getFormat(), BARCODE_IMAGE_WIDTH,
-										BARCODE_IMAGE_HEIGHT);
-								if (bm != null) {
-									dims = bm.getEnclosingRectangle();
-//									System.out.println("NO ZOOM Dims [TLWH]: "
-//										+ dims[TOP] + "," + dims[LEFT] + ","
-//										+ dims[WIDTH] + "," + dims[HEIGHT]);
-								}
-							} else {
-								bm = generateBarcode(bcode.getContent(),
-										bcode.getFormat(),
-										(int) (BARCODE_IMAGE_HEIGHT),
-										(int) (BARCODE_IMAGE_WIDTH));
-								if (bm != null) {
-									dims = bm.getEnclosingRectangle();
-									//System.out.println("BEFORE Dims [TLWH]: "
-									//		+ dims[TOP] + "," + dims[LEFT] + ","
-									//		+ dims[WIDTH] + "," + dims[HEIGHT]);
-									// bm = MatrixOps.resize(bm,
-									// BARCODE_IMAGE_HEIGHT, BARCODE_IMAGE_WIDTH);
-									dims = bm.getEnclosingRectangle();
-									//System.out.println("MIDDLE Dims [TLWH]: "
-									//		+ dims[TOP] + "," + dims[LEFT] + ","
-									//		+ dims[WIDTH] + "," + dims[HEIGHT]);
-									if (diff == 1)
-										bm = MatrixOps.rotate90clockwise(bm);
-									else if (diff == -1 || diff == 3)
-										bm = MatrixOps.rotate90counterclockwise(bm);
-									else if (diff == 2 || diff == -2)
-										bm = MatrixOps.rotate180(bm);
-								}
+							bm = generateBarcode(bcode.getContent(),
+									bcode.getFormat(),
+									(int) (BARCODE_IMAGE_HEIGHT),
+									(int) (BARCODE_IMAGE_WIDTH));
+
+							//int diff = Barcode.difference("Top", bcode.getDesiredOrientation());
+							int diff = Barcode.difference(bcode.getStartingOrientation(), bcode.getDesiredOrientation());
+							if (bm != null) {
+								dims = bm.getEnclosingRectangle();
+								System.out.println("BEFORE Dims [TLWH]: "
+										+ dims[TOP] + "," + dims[LEFT] + ","
+										+ dims[WIDTH] + "," + dims[HEIGHT]);
+								System.out.println("Rotate Difference = "+diff);
+								
+								// rotate?
+								if (diff == 1)
+									bm = MatrixOps.rotate90clockwise(bm);
+								else if (diff == -1 || diff == 3)
+									bm = MatrixOps.rotate90counterclockwise(bm);
+								else if (diff == 2 || diff == -2)
+									bm = MatrixOps.rotate180(bm);
+
+								dims = bm.getEnclosingRectangle();
+								System.out.println("AFTER ROTATE Dims [TLWH]: "
+										+ dims[TOP] + "," + dims[LEFT] + ","
+										+ dims[WIDTH] + "," + dims[HEIGHT]);
+
+								// Resize?
+									if (dims[WIDTH]>BARCODE_IMAGE_WIDTH || dims[HEIGHT]>BARCODE_IMAGE_HEIGHT) {
+										int w = dims[WIDTH];
+										int h = dims[HEIGHT];
+										float ratio = (float)0.0;
+										if (dims[WIDTH]>BARCODE_IMAGE_WIDTH) {
+											ratio = BARCODE_IMAGE_WIDTH / dims[WIDTH];
+											h = (int)(h * ratio);
+											w = (int)(w * ratio);
+										}
+										if (h>BARCODE_IMAGE_HEIGHT) {
+											ratio = BARCODE_IMAGE_HEIGHT / dims[WIDTH];
+											h = (int)(h * ratio);
+											w = (int)(w * ratio);
+										}
+										bm = MatrixOps.resize(bm,
+												w, h);
+										dims = bm.getEnclosingRectangle();
+										System.out.println("AFTER RESIZE Dims [TLWH]: "
+												+ dims[TOP] + "," + dims[LEFT] + ","
+												+ dims[WIDTH] + "," + dims[HEIGHT]);
+									}
+
+
 							}
 							
 							// Flag error if necessary
@@ -304,18 +320,17 @@ public class WBService extends Service {
 							// Record the barcode
 							setMatrix(bm);
 							dims = bm.getEnclosingRectangle();
-							//System.out.println("AFTER Dims [TLWH]: "
-							//		+ dims[TOP] + "," + dims[LEFT] + ","
-							//		+ dims[WIDTH] + "," + dims[HEIGHT]);
+							System.out.println("SENDING Dims [TLWH]: "
+									+ dims[TOP] + "," + dims[LEFT] + ","
+									+ dims[WIDTH] + "," + dims[HEIGHT]);
 
 							// send starting row information
 							int firstRow = (dims[TOP] - ROWS_PER_MESSAGE - 2);
 							if (firstRow < 0)
 								firstRow = -ROWS_PER_MESSAGE;
-							//System.out.println("Sending first row number: "
-							//		+ firstRow);
-							data.addUint16(BARCODE_IMAGE_BYTES,
-									(short) firstRow);
+							firstRow = -5;
+							System.out.println("Sending first row number: " + firstRow);
+							data.addUint16(BARCODE_IMAGE_BYTES,(short) firstRow);
 							bstart = new Date().getTime();
 							millis1 = new Date().getTime();
 							PebbleKit.sendDataToPebble(parent, PEBBLE_APP_UUID,
@@ -335,10 +350,10 @@ public class WBService extends Service {
 							while (nextRow < ROW_TO_STOP
 									&& nextRow < dims[TOP] + dims[HEIGHT]) {
 								//System.out.println(nextRow);
-								if (nextRow < (dims[TOP] - ROWS_PER_MESSAGE)) {
-									nextRow += 1;
-									continue;
-								}
+//								if (nextRow < (dims[TOP] - ROWS_PER_MESSAGE)) {
+//									nextRow += 1;
+//									continue;
+//								}
 
 								if (nextRow >= ROW_TO_STOP
 										|| nextRow >= dims[TOP] + dims[HEIGHT]) {
@@ -353,8 +368,7 @@ public class WBService extends Service {
 									//				+ (bend - bstart));
 								} else {
 									// send image in pieces, X rows at a time
-									imageMessageBytes = encode(bm, nextRow,
-											dims[LEFT], dims[TOP]);
+									imageMessageBytes = encode(bm, nextRow, dims[LEFT], dims[TOP]);
 									if (imageMessageBytes[0] == -1) {
 										nextRow += 1;
 									} else {
@@ -452,10 +466,14 @@ public class WBService extends Service {
 	  
     private byte[] encode(BitMatrix bm, int aRow, int xOffset, int yOffset) 
     {
-        int bytesPerRow = 16;//BARCODE_IMAGE_WIDTH / 8;
+        int byteOffset = xOffset/8;
+        int bitOffset = xOffset - byteOffset*8;
+        int bytesPerRow = BARCODE_IMAGE_WIDTH / 8;  // 16???
         int endian = bytesPerRow-1;
         byte[] imageBytes = new byte[(bytesPerRow * ROWS_PER_MESSAGE) + 3];       
         int sum = 0;
+        
+        System.out.println("ENCODING row "+aRow+", offset = ("+xOffset+","+yOffset+"), bOffset = ("+byteOffset+", "+bitOffset+")");
         
         for (int z=0; z < ROWS_PER_MESSAGE; z++) { 
         	if (aRow+z+yOffset >= bm.getHeight()) break;
@@ -474,8 +492,8 @@ public class WBService extends Service {
         		byte b = 0;  // start out white
             	for (int bit=0; bit<8; bit++) {
             		//b = (byte)(b << 1);
-            		b = (byte) (b + ((bm.get(by*8+bit, aRow+z)?0:1) << bit));  // correct for endianness
-            	}
+            		b = (byte) (b + ((bm.get((by+byteOffset)*8+bit+bitOffset, aRow+z+yOffset)?0:1) << bit));  // correct for endianness
+            	}            	
             	
             	// Place the byte into the correct place in the array
             	int place = (bytesPerRow*z)+by+3;            	
@@ -483,6 +501,7 @@ public class WBService extends Service {
             	sum += b;
             	
         	}
+        	
         	if (sum == bytesPerRow * -1) {
         		if (z == 0) {
             		imageBytes[0] = -1;

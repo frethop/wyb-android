@@ -96,7 +96,7 @@ public class Barcode {
 	
 	public String getStartingOrientation() {
 		if (formatName.toLowerCase().equals("aztec"))
-			return "Top";
+			return "Left";
 		else if (formatName.toLowerCase().equals("codeabar"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("codabar"))
@@ -106,7 +106,7 @@ public class Barcode {
 		else if (formatName.toLowerCase().equals("code_93"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("code_128"))
-			return "Left";
+			return "Top";
 		else if (formatName.toLowerCase().equals("data_matrix"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("ean_8"))
@@ -120,7 +120,7 @@ public class Barcode {
 		else if (formatName.toLowerCase().equals("pdf_417"))
 			return "Top";
 		else if (formatName.toLowerCase().equals("qr_code"))
-			return "Right";
+			return "Top";
 		else if (formatName.toLowerCase().equals("qrcode"))
 			return "Right";
 		else if (formatName.toLowerCase().equals("rss_14"))
@@ -151,7 +151,7 @@ public class Barcode {
 		else if (formatName.toLowerCase().equals("code_93"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("code_128"))
-			return "Left";
+			return "Top";
 		else if (formatName.toLowerCase().equals("data_matrix"))
 			return "Top";
 		else if (formatName.toLowerCase().equals("ean_8"))
@@ -163,7 +163,7 @@ public class Barcode {
 		else if (formatName.toLowerCase().equals("maxicode"))
 			return "Top";
 		else if (formatName.toLowerCase().equals("pdf_417"))
-			return "Top";
+			return "Left";
 		else if (formatName.toLowerCase().equals("qr_code"))
 			return "Top";
 		else if (formatName.toLowerCase().equals("qrcode"))
@@ -173,7 +173,7 @@ public class Barcode {
 		else if (formatName.toLowerCase().equals("rss_expanded"))
 			return "Top";
 		else if (formatName.toLowerCase().equals("upc_a"))
-			return "Left";
+			return "Top";
 		else if (formatName.toLowerCase().equals("upc_e"))
 			return "Left";
 		else if (formatName.toLowerCase().equals("UPC_EAN_EXTENSION"))
