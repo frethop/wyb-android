@@ -280,27 +280,18 @@ public class WBService extends Service {
 										+ dims[WIDTH] + "," + dims[HEIGHT]);
 
 								// Resize?
-									if (dims[WIDTH]>BARCODE_IMAGE_WIDTH || dims[HEIGHT]>BARCODE_IMAGE_HEIGHT) {
-										int w = dims[WIDTH];
-										int h = dims[HEIGHT];
-										float ratio = (float)0.0;
-										if (dims[WIDTH]>BARCODE_IMAGE_WIDTH) {
-											ratio = BARCODE_IMAGE_WIDTH / dims[WIDTH];
-											h = (int)(h * ratio);
-											w = (int)(w * ratio);
-										}
-										if (h>BARCODE_IMAGE_HEIGHT) {
-											ratio = BARCODE_IMAGE_HEIGHT / dims[WIDTH];
-											h = (int)(h * ratio);
-											w = (int)(w * ratio);
-										}
-										bm = MatrixOps.resize(bm,
-												w, h);
-										dims = bm.getEnclosingRectangle();
-										System.out.println("AFTER RESIZE Dims [TLWH]: "
-												+ dims[TOP] + "," + dims[LEFT] + ","
-												+ dims[WIDTH] + "," + dims[HEIGHT]);
-									}
+								if (dims[WIDTH]>BARCODE_IMAGE_WIDTH || dims[HEIGHT]>BARCODE_IMAGE_HEIGHT) {
+									float wRatio = BARCODE_IMAGE_WIDTH / dims[WIDTH];
+									float hRatio = BARCODE_IMAGE_HEIGHT / dims[HEIGHT];
+									float ratio = Math.min(wRatio, hRatio);
+									int w = (int)(dims[WIDTH] * ratio);
+									int h = (int)(dims[HEIGHT] * ratio);
+									bm = MatrixOps.resize(bm, w, h);
+									dims = bm.getEnclosingRectangle();
+									System.out.println("AFTER RESIZE Dims [TLWH]: "
+											+ dims[TOP] + "," + dims[LEFT] + ","
+											+ dims[WIDTH] + "," + dims[HEIGHT]);
+								}
 									
 								// Shift it over a little
 									
@@ -470,11 +461,12 @@ public class WBService extends Service {
 	  
     private byte[] encode(BitMatrix bm, int aRow, int xOffset, int yOffset) 
     {
+    	int leftPadding = 0;
         int byteOffset = xOffset/8;
         int bitOffset = xOffset - byteOffset*8;
         int bytesPerRow = BARCODE_IMAGE_WIDTH / 8;  // 16???
         int endian = bytesPerRow-1;
-        byte[] imageBytes = new byte[((bytesPerRow) * ROWS_PER_MESSAGE) + 3];       
+        byte[] imageBytes = new byte[((bytesPerRow+leftPadding) * ROWS_PER_MESSAGE) + 3];       
         int sum = 0;
         int place;
                 
@@ -487,7 +479,7 @@ public class WBService extends Service {
             if (z == 0) {
             	imageBytes[0] = (byte)(aRow & 0xFF);  // put the row # as the first element
             	imageBytes[1] = (byte)(aRow >> 8 & 0xFF);
-            	imageBytes[2] = (byte)(bytesPerRow);
+            	imageBytes[2] = (byte)(bytesPerRow+leftPadding);
             }
             
             sum = 0;
@@ -501,7 +493,7 @@ public class WBService extends Service {
             	}            	
             	
             	// Place the byte into the correct place in the array
-            	place = ((bytesPerRow)*z)+by+3;            	
+            	place = ((bytesPerRow+leftPadding)*z)+by+leftPadding+3;            	
             	imageBytes[place] = b;
             	sum += b;
             	
