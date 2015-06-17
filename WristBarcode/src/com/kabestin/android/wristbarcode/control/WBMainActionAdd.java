@@ -18,6 +18,7 @@ public class WBMainActionAdd implements OptionsItemHandler {
 		ArrayList<String> codes = new ArrayList<String>();
 		codes.add("AZTEC");
 		codes.add("PDF417");
+		codes.add("DATAMATRIX");
 		codes.add("MAXICODE");
 		codes.add("ONED");
 		codes.add("MULTI");

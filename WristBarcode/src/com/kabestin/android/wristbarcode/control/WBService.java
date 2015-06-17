@@ -35,6 +35,7 @@ import com.google.zxing.Dimension;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.pdf417.encoder.Dimensions;
 import com.kabestin.android.wristbarcode.model.Barcode;
 import com.kabestin.android.wristbarcode.model.BarcodeList;
 import com.kabestin.android.wristbarcode.model.MatrixOps;
@@ -300,6 +301,9 @@ public class WBService extends Service {
 												+ dims[TOP] + "," + dims[LEFT] + ","
 												+ dims[WIDTH] + "," + dims[HEIGHT]);
 									}
+									
+								// Shift it over a little
+									
 
 
 							}
@@ -470,9 +474,10 @@ public class WBService extends Service {
         int bitOffset = xOffset - byteOffset*8;
         int bytesPerRow = BARCODE_IMAGE_WIDTH / 8;  // 16???
         int endian = bytesPerRow-1;
-        byte[] imageBytes = new byte[(bytesPerRow * ROWS_PER_MESSAGE) + 3];       
+        byte[] imageBytes = new byte[((bytesPerRow) * ROWS_PER_MESSAGE) + 3];       
         int sum = 0;
-        
+        int place;
+                
         System.out.println("ENCODING row "+aRow+", offset = ("+xOffset+","+yOffset+"), bOffset = ("+byteOffset+", "+bitOffset+")");
         
         for (int z=0; z < ROWS_PER_MESSAGE; z++) { 
@@ -482,7 +487,7 @@ public class WBService extends Service {
             if (z == 0) {
             	imageBytes[0] = (byte)(aRow & 0xFF);  // put the row # as the first element
             	imageBytes[1] = (byte)(aRow >> 8 & 0xFF);
-            	imageBytes[2] = (byte)bytesPerRow;
+            	imageBytes[2] = (byte)(bytesPerRow);
             }
             
             sum = 0;
@@ -496,7 +501,7 @@ public class WBService extends Service {
             	}            	
             	
             	// Place the byte into the correct place in the array
-            	int place = (bytesPerRow*z)+by+3;            	
+            	place = ((bytesPerRow)*z)+by+3;            	
             	imageBytes[place] = b;
             	sum += b;
             	
@@ -535,7 +540,7 @@ public class WBService extends Service {
 				Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>(3);
 				hints.put(EncodeHintType.CHARACTER_SET, "ISO-8859-1");
 				hints.put(EncodeHintType.MARGIN, (Integer)0);
-				hints.put(EncodeHintType.MIN_SIZE, new Dimension(aWidth, aHeight));
+				hints.put(EncodeHintType.PDF417_DIMENSIONS, new Dimensions(aWidth, aWidth, aHeight, aHeight));
 				matrix = writer.encode(data, format, aWidth, aHeight, hints);
 			} catch (Exception e) {
 				System.out.println("matrix: "+e.getMessage());
