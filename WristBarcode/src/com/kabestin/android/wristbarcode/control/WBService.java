@@ -461,7 +461,7 @@ public class WBService extends Service {
 	  
     private byte[] encode(BitMatrix bm, int aRow, int xOffset, int yOffset) 
     {
-    	int leftPadding = 0;
+    	int leftPadding = 0; //byte
         int byteOffset = xOffset/8;
         int bitOffset = xOffset - byteOffset*8;
         int bytesPerRow = BARCODE_IMAGE_WIDTH / 8;  // 16???
@@ -472,11 +472,11 @@ public class WBService extends Service {
                 
         System.out.println("ENCODING row "+aRow+", offset = ("+xOffset+","+yOffset+"), bOffset = ("+byteOffset+", "+bitOffset+")");
         
-        for (int z=0; z < ROWS_PER_MESSAGE; z++) { 
-        	if (aRow+z+yOffset >= bm.getHeight()) break;
+        for (int row=0; row < ROWS_PER_MESSAGE; row++) { 
+        	if (aRow+row+yOffset >= bm.getHeight()) break;
         	
         	// row # as first 2 elements of data
-            if (z == 0) {
+            if (row == 0) {
             	imageBytes[0] = (byte)(aRow & 0xFF);  // put the row # as the first element
             	imageBytes[1] = (byte)(aRow >> 8 & 0xFF);
             	imageBytes[2] = (byte)(bytesPerRow+leftPadding);
@@ -489,18 +489,18 @@ public class WBService extends Service {
         		byte b = 0;  // start out white
             	for (int bit=0; bit<8; bit++) {
             		//b = (byte)(b << 1);
-            		b = (byte) (b + ((bm.get((by+byteOffset)*8+bit+bitOffset, aRow+z+yOffset)?0:1) << bit));  // correct for endianness
+            		b = (byte) (b + ((bm.get((by+byteOffset)*8+bit+bitOffset, aRow+row+yOffset)?0:1) << bit));  // correct for endianness
             	}            	
             	
             	// Place the byte into the correct place in the array
-            	place = ((bytesPerRow+leftPadding)*z)+by+leftPadding+3;            	
+            	place = 3 + ((bytesPerRow+leftPadding)*row) + leftPadding + by;            	
             	imageBytes[place] = b;
             	sum += b;
             	
         	}
         	
         	if (sum == bytesPerRow * -1) {
-        		if (z == 0) {
+        		if (row == 0) {
             		imageBytes[0] = -1;
             		return imageBytes;
         		} 
