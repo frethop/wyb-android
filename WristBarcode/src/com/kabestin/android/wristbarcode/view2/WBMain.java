@@ -33,6 +33,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,6 +75,7 @@ import com.kabestin.android.wristbarcode.control.OptionsItemHandler;
 import com.kabestin.android.wristbarcode.control.WBMainActionAdd;
 import com.kabestin.android.wristbarcode.control.WBMainBarcodeResult;
 import com.kabestin.android.wristbarcode.control.WBService;
+import com.kabestin.android.wristbarcode.googlewallet.GoogleWallet;
 import com.kabestin.android.wristbarcode.model.Barcode;
 import com.kabestin.android.wristbarcode.model.BarcodeList;
 import com.kabestin.android.wristbarcode.model.ViewHolder;
@@ -178,6 +180,9 @@ public class WBMain extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_wbmain);
 		
+    	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    	StrictMode.setThreadPolicy(policy); 
+		
 		parent = this;
 		barcodeList = new BarcodeList();
 		barcodeToDisplay = -1;
@@ -203,12 +208,11 @@ public class WBMain extends Activity {
 		int w = getWindowManager().getDefaultDisplay().getWidth();
 		slview.setOffsetLeft(w-120); // left side offset
 		slview.setOffsetRight(convertDpToPixel(0f)); // right side offset
-		slview.setAnimationTime(50); // animarion time
+		slview.setAnimationTime(50); // animation time
 		slview.setSwipeOpenOnLongPress(true); // enable or disable SwipeOpenOnLongPress
 		
 		adapter = new BarcodeListViewAdapter(this);
 		slview.setAdapter(adapter);
-
 		
 		//*** Set up option, activity, and dialog handlers		
 		optionItemHandlers = new HashMap<Integer, Class>();
@@ -218,6 +222,10 @@ public class WBMain extends Activity {
 		
 		activityResultHandlers = new HashMap<Integer, Class>();
 		activityResultHandlers.put(R.id.action_settings, OpeningMenuSettingsItem.class);
+		
+		// Google Wallet
+		GoogleWallet wallet = new GoogleWallet(this);
+		wallet.getLoyaltyClassList();
 		
 		/**
 		 * Class for interacting with the main interface of the service.
