@@ -156,7 +156,7 @@ public class MatrixOps {
     static public BitMatrix resize(BitMatrix bm, int newWidth, int newHeight)
 	{
 		int[] dims = bm.getEnclosingRectangle();
-        System.out.println("RESIZE orig dims [TLWH]: "+dims[TOP]+","+dims[LEFT]+","+dims[WIDTH]+","+dims[HEIGHT]);
+        System.out.println("RESIZE orig dims [TLWH]: "+dims[TOP]+","+dims[LEFT]+","+dims[WIDTH]+","+dims[HEIGHT]+" to "+newWidth+","+newHeight);
 		
 	    int width = dims[WIDTH];
 	    int height = dims[HEIGHT];

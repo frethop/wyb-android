@@ -280,9 +280,10 @@ public class WBService extends Service {
 										+ dims[WIDTH] + "," + dims[HEIGHT]);
 
 								// Resize?
-								if (dims[WIDTH]>BARCODE_IMAGE_WIDTH || dims[HEIGHT]>BARCODE_IMAGE_HEIGHT) {
-									float wRatio = BARCODE_IMAGE_WIDTH / dims[WIDTH];
-									float hRatio = BARCODE_IMAGE_HEIGHT / dims[HEIGHT];
+								if (dims[WIDTH]>BARCODE_IMAGE_WIDTH || dims[HEIGHT]>BARCODE_IMAGE_HEIGHT
+										|| dims[WIDTH] < BARCODE_IMAGE_WIDTH/2 || dims[HEIGHT] < BARCODE_IMAGE_HEIGHT/2) {
+									float wRatio = (float)BARCODE_IMAGE_WIDTH / (float)dims[WIDTH];
+									float hRatio = (float)BARCODE_IMAGE_HEIGHT / (float)dims[HEIGHT];
 									float ratio = Math.min(wRatio, hRatio);
 									int w = (int)(dims[WIDTH] * ratio);
 									int h = (int)(dims[HEIGHT] * ratio);
@@ -293,9 +294,6 @@ public class WBService extends Service {
 											+ dims[WIDTH] + "," + dims[HEIGHT]);
 								}
 									
-								// Shift it over a little
-									
-
 
 							}
 							
@@ -304,7 +302,7 @@ public class WBService extends Service {
 								//Toast.makeText(getApplicationContext(),
 								//		"ERROR: "+errorMessage,
 								//		Toast.LENGTH_LONG).show();
-								System.out.println("Sending ERROR message.");
+								System.out.println("Sending ERROR message: "+errorMessage);
 								data.addString(BARCODE_ERROR, errorMessage);
 								bstart = new Date().getTime();
 								millis1 = new Date().getTime();
@@ -532,9 +530,10 @@ public class WBService extends Service {
 				Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>(3);
 				hints.put(EncodeHintType.CHARACTER_SET, "ISO-8859-1");
 				hints.put(EncodeHintType.MARGIN, (Integer)0);
-				hints.put(EncodeHintType.PDF417_DIMENSIONS, new Dimensions(aWidth, aWidth, aHeight, aHeight));
+				//hints.put(EncodeHintType.PDF417_DIMENSIONS, new Dimensions(aWidth, aWidth, aHeight, aHeight));
 				matrix = writer.encode(data, format, aWidth, aHeight, hints);
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.out.println("matrix: "+e.getMessage());
 				matrix = null;
 				errorMessage = e.getMessage();
