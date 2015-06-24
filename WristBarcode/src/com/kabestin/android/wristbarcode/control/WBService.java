@@ -328,7 +328,7 @@ public class WBService extends Service {
 							millis1 = new Date().getTime();
 							PebbleKit.sendDataToPebble(parent, PEBBLE_APP_UUID,
 									data);
-							// showDialog(R.id.barcode_info);
+							//showDialog(R.id.barcode_info);
 
 							break;
 
@@ -523,13 +523,15 @@ public class WBService extends Service {
 		String data;
 		try {
 			data = new String(b, "ISO-8859-1");
+			System.out.println("genBM: "+data);
 			// get a byte matrix for the data
 			matrix = null;
 			com.google.zxing.Writer writer = new MultiFormatWriter();
 			try {
 				Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>(3);
 				hints.put(EncodeHintType.CHARACTER_SET, "ISO-8859-1");
-				hints.put(EncodeHintType.MARGIN, (Integer)0);
+				hints.put(EncodeHintType.MARGIN, (Integer)5);
+				hints.put(EncodeHintType.AZTEC_LAYERS, 0);
 				//hints.put(EncodeHintType.PDF417_DIMENSIONS, new Dimensions(aWidth, aWidth, aHeight, aHeight));
 				matrix = writer.encode(data, format, aWidth, aHeight, hints);
 			} catch (Exception e) {

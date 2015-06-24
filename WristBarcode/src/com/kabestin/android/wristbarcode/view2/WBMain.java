@@ -453,41 +453,6 @@ public class WBMain extends Activity {
         super.onResume();
     }
     
-	public BitMatrix generateBarcode(String stringData, BarcodeFormat format, int aWidth, int aHeight) {
-
-		Charset charset = Charset.forName("ISO-8859-1");
-		CharsetEncoder encoder = charset.newEncoder();
-		byte[] b = null;
-		try {
-			ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(stringData));
-			b = bbuf.array();
-		} catch (CharacterCodingException e) {
-			System.out.println(e.getMessage());
-		}
-
-		String data;
-		try {
-			data = new String(b, "ISO-8859-1");
-			// get a byte matrix for the data
-			matrix = null;
-			com.google.zxing.Writer writer = new MultiFormatWriter();
-			try {
-				Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>(3);
-				hints.put(EncodeHintType.CHARACTER_SET, "ISO-8859-1");
-				hints.put(EncodeHintType.MARGIN, (Integer)0);
-				hints.put(EncodeHintType.MIN_SIZE, new Dimension(aWidth, aHeight));
-				matrix = writer.encode(data, format, aWidth, aHeight, hints);
-			} catch (com.google.zxing.WriterException e) {
-				System.out.println(e.getMessage());
-			}
-
-			return matrix;
-		} catch (UnsupportedEncodingException e) { 
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
-    
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	  scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
     	  if (scanResult != null) {

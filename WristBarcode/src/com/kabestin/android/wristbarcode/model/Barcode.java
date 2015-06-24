@@ -131,7 +131,7 @@ public class Barcode {
 			return "Top";
 		else if (formatName.toLowerCase().equals("upc_e"))
 			return "Top";
-		else if (formatName.toLowerCase().equals("UPC_EAN_EXTENSION"))
+		else if (formatName.toLowerCase().equals("upc_ean_extension"))
 			return "Top";
 		else 
 			return null;
@@ -176,7 +176,7 @@ public class Barcode {
 			return "Top";
 		else if (formatName.toLowerCase().equals("upc_e"))
 			return "Left";
-		else if (formatName.toLowerCase().equals("UPC_EAN_EXTENSION"))
+		else if (formatName.toLowerCase().equals("upc_ean_extension"))
 			return "Left";
 		else 
 			return null;
