@@ -16,15 +16,15 @@
 
 package com.google.zxing.pdf417.decoder;
 
-import com.google.zxing.FormatException;
-import com.google.zxing.common.CharacterSetECI;
-import com.google.zxing.common.DecoderResult;
-import com.google.zxing.pdf417.PDF417ResultMetadata;
-
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+
+import com.google.zxing.FormatException;
+import com.google.zxing.common.CharacterSetECI;
+import com.google.zxing.common.DecoderResult;
+import com.google.zxing.pdf417.PDF417ResultMetadata;
 
 /**
  * <p>This class contains the methods for decoding the PDF417 codewords.</p>

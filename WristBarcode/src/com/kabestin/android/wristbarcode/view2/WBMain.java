@@ -4,14 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Random;
 import java.util.UUID;
 
@@ -58,10 +51,6 @@ import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.swipelistview.SwipeListView;
 import com.getpebble.android.kit.PebbleKit;
 import com.getpebble.android.kit.util.PebbleDictionary;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Dimension;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -73,9 +62,9 @@ import com.kabestin.android.wristbarcode.control.OpeningMenuAboutItem;
 import com.kabestin.android.wristbarcode.control.OpeningMenuSettingsItem;
 import com.kabestin.android.wristbarcode.control.OptionsItemHandler;
 import com.kabestin.android.wristbarcode.control.WBMainActionAdd;
+import com.kabestin.android.wristbarcode.control.WBMainActionAddScreenshot;
 import com.kabestin.android.wristbarcode.control.WBMainBarcodeResult;
 import com.kabestin.android.wristbarcode.control.WBService;
-import com.kabestin.android.wristbarcode.googlewallet.GoogleWallet;
 import com.kabestin.android.wristbarcode.model.Barcode;
 import com.kabestin.android.wristbarcode.model.BarcodeList;
 import com.kabestin.android.wristbarcode.model.ViewHolder;
@@ -217,16 +206,14 @@ public class WBMain extends Activity {
 		//*** Set up option, activity, and dialog handlers		
 		optionItemHandlers = new HashMap<Integer, Class>();
 		optionItemHandlers.put(R.id.action_add, WBMainActionAdd.class);
+		optionItemHandlers.put(R.id.action_add_from_screenshot, WBMainActionAddScreenshot.class);
 		optionItemHandlers.put(R.id.action_settings, OpeningMenuSettingsItem.class);
 		optionItemHandlers.put(R.id.action_about, OpeningMenuAboutItem.class);
 		
 		activityResultHandlers = new HashMap<Integer, Class>();
 		activityResultHandlers.put(R.id.action_settings, OpeningMenuSettingsItem.class);
-		
-		// Google Wallet
-		GoogleWallet wallet = new GoogleWallet(this);
-		wallet.getLoyaltyClassList();
-		
+		activityResultHandlers.put(1001, WBMainActionAddScreenshot.class);
+			
 		/**
 		 * Class for interacting with the main interface of the service.
 		 */

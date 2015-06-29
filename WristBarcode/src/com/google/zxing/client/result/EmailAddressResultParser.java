@@ -16,10 +16,10 @@
 
 package com.google.zxing.client.result;
 
-import com.google.zxing.Result;
-
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import com.google.zxing.Result;
 
 /**
  * Represents a result that encodes an e-mail address, either as a plain address

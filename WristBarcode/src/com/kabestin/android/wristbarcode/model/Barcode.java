@@ -1,7 +1,5 @@
 package com.kabestin.android.wristbarcode.model;
 
-import android.graphics.drawable.GradientDrawable.Orientation;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.integration.android.IntentResult;
 

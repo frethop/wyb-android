@@ -9,7 +9,7 @@ package com.kabestin.android.wristbarcode.view2;
 
 public final class R {
     public static final class array {
-        public static final int barcode_orientation=0x7f050000;
+        public static final int barcode_orientation=0x7f090000;
     }
     public static final class attr {
         /** <p>Must be one of the following constant values.</p>
@@ -110,6 +110,10 @@ containing a value of this type.
          */
         public static final int swipeOpenOnLongPress=0x7f010000;
     }
+    public static final class bool {
+        public static final int use_activity=0x7f050000;
+        public static final int use_provider=0x7f050001;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -117,8 +121,10 @@ containing a value of this type.
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
+        public static final int activity_horizontal_margin=0x7f060002;
+        public static final int activity_vertical_margin=0x7f060003;
+        public static final int list_item_padding=0x7f060001;
+        public static final int list_padding=0x7f060000;
     }
     public static final class drawable {
         public static final int background_back=0x7f020000;
@@ -128,57 +134,68 @@ containing a value of this type.
         public static final int choice_unselected=0x7f020004;
         public static final int delete=0x7f020005;
         public static final int ic_action_add=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int map_pin_fill=0x7f020008;
-        public static final int wyb_icon=0x7f020009;
-        public static final int x_28x28=0x7f02000a;
+        public static final int ic_chooser=0x7f020007;
+        public static final int ic_file=0x7f020008;
+        public static final int ic_folder=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int ic_provider=0x7f02000b;
+        public static final int map_pin_fill=0x7f02000c;
+        public static final int wyb_icon=0x7f02000d;
+        public static final int x_28x28=0x7f02000e;
     }
     public static final class id {
-        public static final int about_content=0x7f090007;
-        public static final int action_about=0x7f09001c;
-        public static final int action_add=0x7f09001a;
-        public static final int action_settings=0x7f09001b;
-        public static final int back=0x7f09000a;
-        public static final int barcode_done_button=0x7f090012;
-        public static final int barcode_editable_name=0x7f090011;
-        public static final int barcode_info=0x7f090014;
-        public static final int barcode_list=0x7f090008;
-        public static final int barcode_list_row=0x7f09000d;
-        public static final int barcode_name=0x7f090010;
-        public static final int barcode_name_editor=0x7f09000f;
-        public static final int barcode_ok_button=0x7f09000c;
-        public static final int barcode_pin_button=0x7f090015;
-        public static final int barcode_view=0x7f09000b;
-        public static final int both=0x7f090001;
-        public static final int cancel_barcode_name_button=0x7f090019;
-        public static final int choice=0x7f090006;
-        public static final int complete_barcode_name_button=0x7f090018;
-        public static final int dismiss=0x7f090005;
-        public static final int front=0x7f090009;
-        public static final int left=0x7f090003;
-        public static final int new_barcode_name=0x7f090016;
-        public static final int new_barcode_name_dialog_button_container=0x7f090017;
-        public static final int none=0x7f090000;
-        public static final int reveal=0x7f090004;
-        public static final int right=0x7f090002;
-        public static final int row_one=0x7f09000e;
-        public static final int row_two=0x7f090013;
+        public static final int about_content=0x7f0a0007;
+        public static final int action_about=0x7f0a001d;
+        public static final int action_add=0x7f0a001a;
+        public static final int action_add_from_screenshot=0x7f0a001b;
+        public static final int action_settings=0x7f0a001c;
+        public static final int back=0x7f0a000a;
+        public static final int barcode_done_button=0x7f0a0012;
+        public static final int barcode_editable_name=0x7f0a0011;
+        public static final int barcode_info=0x7f0a0014;
+        public static final int barcode_list=0x7f0a0008;
+        public static final int barcode_list_row=0x7f0a000d;
+        public static final int barcode_name=0x7f0a0010;
+        public static final int barcode_name_editor=0x7f0a000f;
+        public static final int barcode_ok_button=0x7f0a000c;
+        public static final int barcode_pin_button=0x7f0a0015;
+        public static final int barcode_view=0x7f0a000b;
+        public static final int both=0x7f0a0001;
+        public static final int cancel_barcode_name_button=0x7f0a0019;
+        public static final int choice=0x7f0a0006;
+        public static final int complete_barcode_name_button=0x7f0a0018;
+        public static final int dismiss=0x7f0a0005;
+        public static final int front=0x7f0a0009;
+        public static final int left=0x7f0a0003;
+        public static final int new_barcode_name=0x7f0a0016;
+        public static final int new_barcode_name_dialog_button_container=0x7f0a0017;
+        public static final int none=0x7f0a0000;
+        public static final int reveal=0x7f0a0004;
+        public static final int right=0x7f0a0002;
+        public static final int row_one=0x7f0a000e;
+        public static final int row_two=0x7f0a0013;
     }
     public static final class layout {
         public static final int about=0x7f030000;
         public static final int activity_wbmain=0x7f030001;
         public static final int barcode_display_dialog=0x7f030002;
         public static final int barcode_list_row=0x7f030003;
-        public static final int new_barcode_dialog=0x7f030004;
+        public static final int file=0x7f030004;
+        public static final int new_barcode_dialog=0x7f030005;
     }
     public static final class menu {
-        public static final int wbmain=0x7f0a0000;
+        public static final int wbmain=0x7f0b0000;
     }
     public static final class string {
-        public static final int about_text=0x7f070003;
-        public static final int action_about=0x7f070002;
-        public static final int action_settings=0x7f070001;
-        public static final int app_name=0x7f070000;
+        public static final int about_text=0x7f070008;
+        public static final int action_about=0x7f070007;
+        public static final int action_settings=0x7f070006;
+        public static final int app_name=0x7f070005;
+        public static final int choose_file=0x7f070002;
+        public static final int empty_directory=0x7f070000;
+        public static final int error_selecting_file=0x7f070003;
+        public static final int internal_storage=0x7f070004;
+        public static final int storage_removed=0x7f070001;
     }
     public static final class style {
         /** 
@@ -202,19 +219,21 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f080000;
+        public static final int AppBaseTheme=0x7f080001;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f080001;
-        public static final int MyListBackContent=0x7f080002;
-        public static final int MyListButtonAction=0x7f080004;
-        public static final int MyListFrontContent=0x7f080003;
-        public static final int MyListImage=0x7f080005;
-        public static final int MyListTitle=0x7f080006;
+        public static final int AppTheme=0x7f080002;
+        public static final int MyListBackContent=0x7f080003;
+        public static final int MyListButtonAction=0x7f080005;
+        public static final int MyListFrontContent=0x7f080004;
+        public static final int MyListImage=0x7f080006;
+        public static final int MyListTitle=0x7f080007;
+        public static final int fileChooserName=0x7f080000;
     }
     public static final class xml {
-        public static final int preferences=0x7f040000;
+        public static final int mimetypes=0x7f040000;
+        public static final int preferences=0x7f040001;
     }
     public static final class styleable {
         /** Attributes that can be used with a SwipeListView.

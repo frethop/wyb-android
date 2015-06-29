@@ -3,7 +3,6 @@ package com.kabestin.android.wristbarcode.control;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.kabestin.android.wristbarcode.model.ViewHolder;
 import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class DeleteOnClickAction implements OnClickListener {

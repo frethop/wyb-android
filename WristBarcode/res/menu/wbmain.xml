@@ -6,6 +6,13 @@
         android:showAsAction="always"
         android:icon="@drawable/ic_action_add"
         android:title="Add"/>
+
+    <item
+        android:id="@+id/action_add_from_screenshot"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/check_32x26"
+        android:title="Add"/>
     
     <item
         android:id="@+id/action_settings"

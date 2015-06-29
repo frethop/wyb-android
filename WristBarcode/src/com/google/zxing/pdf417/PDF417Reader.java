@@ -16,6 +16,10 @@
 
 package com.google.zxing.pdf417;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
@@ -31,10 +35,6 @@ import com.google.zxing.multi.MultipleBarcodeReader;
 import com.google.zxing.pdf417.decoder.PDF417ScanningDecoder;
 import com.google.zxing.pdf417.detector.Detector;
 import com.google.zxing.pdf417.detector.PDF417DetectorResult;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This implementation can detect and decode PDF417 codes in an image.

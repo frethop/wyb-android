@@ -3,8 +3,22 @@ package com.kabestin.android.wristbarcode.googlewallet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.api.services.walletobjects.model.*;
-import com.google.wallet.objects.utils.WobUtils;
+import com.google.api.services.walletobjects.model.Barcode;
+import com.google.api.services.walletobjects.model.Image;
+import com.google.api.services.walletobjects.model.ImageModuleData;
+import com.google.api.services.walletobjects.model.InfoModuleData;
+import com.google.api.services.walletobjects.model.LabelValue;
+import com.google.api.services.walletobjects.model.LabelValueRow;
+import com.google.api.services.walletobjects.model.LatLongPoint;
+import com.google.api.services.walletobjects.model.LinksModuleData;
+import com.google.api.services.walletobjects.model.LoyaltyClass;
+import com.google.api.services.walletobjects.model.LoyaltyObject;
+import com.google.api.services.walletobjects.model.LoyaltyPoints;
+import com.google.api.services.walletobjects.model.LoyaltyPointsBalance;
+import com.google.api.services.walletobjects.model.RenderSpec;
+import com.google.api.services.walletobjects.model.TextModuleData;
+import com.google.api.services.walletobjects.model.Uri;
+import com.google.api.services.walletobjects.model.WalletObjectMessage;
 
 /**
  * Class to generate example Loyalty class and objects

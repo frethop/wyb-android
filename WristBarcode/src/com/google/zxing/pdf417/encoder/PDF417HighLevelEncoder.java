@@ -20,13 +20,13 @@
 
 package com.google.zxing.pdf417.encoder;
 
-import com.google.zxing.WriterException;
-import com.google.zxing.common.CharacterSetECI;
-
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.Arrays;
+
+import com.google.zxing.WriterException;
+import com.google.zxing.common.CharacterSetECI;
 
 /**
  * PDF417 high-level encoder following the algorithm described in ISO/IEC 15438:2001(E) in

@@ -16,13 +16,13 @@
 
 package com.google.zxing.pdf417.decoder;
 
-import com.google.zxing.pdf417.PDF417Common;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.google.zxing.pdf417.PDF417Common;
 
 /**
  * @author Guenther Grau

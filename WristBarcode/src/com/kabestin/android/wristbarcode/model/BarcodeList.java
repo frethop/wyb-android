@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Environment;
 

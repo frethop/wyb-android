@@ -16,9 +16,9 @@
 
 package com.google.zxing.datamatrix.encoder;
 
-import com.google.zxing.Dimension;
-
 import java.nio.charset.Charset;
+
+import com.google.zxing.Dimension;
 
 final class EncoderContext {
 

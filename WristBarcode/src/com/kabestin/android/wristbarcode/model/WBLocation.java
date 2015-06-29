@@ -1,13 +1,12 @@
 package com.kabestin.android.wristbarcode.model;
 
-import com.kabestin.android.wristbarcode.view2.WBMain;
-
-import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+
+import com.kabestin.android.wristbarcode.view2.WBMain;
 
 public class WBLocation {
 	
